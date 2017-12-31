@@ -1,23 +1,25 @@
 #!/usr/bin/python
 # -*- coding: utf-8 -*-
-from django.conf.urls import patterns, include, url
-
-urlpatterns = patterns('',
-    url(r'^$', 'simplemooc.accounts.views.dashboard', 
+from django.conf.urls import *
+from simplemooc.accounts.views import *
+from django.contrib.auth.views import *
+app_name='accounts'
+urlpatterns = [
+    url(r'^$', dashboard, 
         name='dashboard'),
-    url(r'^entrar/$', 'django.contrib.auth.views.login', 
+    url(r'^entrar/$', login, 
         {'template_name': 'accounts/login.html'}, name='login'),
-    url(r'^sair/$', 'django.contrib.auth.views.logout', 
-        {'next_page': 'core:home'}, name='logout'),
-    url(r'^cadastre-se/$', 'simplemooc.accounts.views.register', 
+    url(r'^sair/$', logout, 
+        {'next_page': '/home/'}, name='logout'),
+    url(r'^cadastre-se/$', register, 
         name='register'),
-    url(r'^nova-senha/$', 'simplemooc.accounts.views.password_reset', 
+    url(r'^nova-senha/$', password_reset, 
         name='password_reset'),
     url(r'^confirmar-nova-senha/(?P<key>\w+)/$', 
-        'simplemooc.accounts.views.password_reset_confirm', 
+        password_reset_confirm, 
         name='password_reset_confirm'),
-    url(r'^editar/$', 'simplemooc.accounts.views.edit', 
+    url(r'^editar/$', edit, 
         name='edit'),
-    url(r'^editar-senha/$', 'simplemooc.accounts.views.edit_password', 
+    url(r'^editar-senha/$', edit_password, 
         name='edit_password'),
-)
+]

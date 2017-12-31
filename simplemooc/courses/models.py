@@ -59,7 +59,7 @@ class Lesson(models.Model):
     number = models.IntegerField('Número (ordem)', blank=True, default=0)
     release_date = models.DateField('Data de Liberação', blank=True, null=True)
 
-    course = models.ForeignKey(Course, verbose_name='Curso', related_name='lessons')
+    course = models.ForeignKey(Course, verbose_name='Curso', related_name='lessons',on_delete='')
 
     created_at = models.DateTimeField('Criado em', auto_now_add=True)
     updated_at = models.DateTimeField('Atualizado em', auto_now=True)
@@ -85,7 +85,7 @@ class Material(models.Model):
     embedded = models.TextField('Vídeo embedded', blank=True)
     file = models.FileField(upload_to='lessons/materials', blank=True, null=True)
 
-    lesson = models.ForeignKey(Lesson, verbose_name='Aula', related_name='materials')
+    lesson = models.ForeignKey(Lesson, verbose_name='Aula', related_name='materials',on_delete='')
 
     def is_embedded(self):
         return bool(self.embedded)
@@ -108,10 +108,10 @@ class Enrollment(models.Model):
 
     user = models.ForeignKey(
         settings.AUTH_USER_MODEL, verbose_name='Usuário',
-        related_name='enrollments'
+        related_name='enrollments',on_delete=''
     )
     course = models.ForeignKey(
-        Course, verbose_name='Curso', related_name='enrollments'
+        Course, verbose_name='Curso', related_name='enrollments',on_delete=''
     )
     status = models.IntegerField(
         'Situação', choices=STATUS_CHOICES, default=1, blank=True
@@ -136,7 +136,7 @@ class Enrollment(models.Model):
 class Announcement(models.Model):
 
     course = models.ForeignKey(
-        Course, verbose_name='Curso', related_name='announcements'
+        Course, verbose_name='Curso', related_name='announcements',on_delete=''
     )
     title = models.CharField('Título', max_length=100)
     content = models.TextField('Conteúdo')
@@ -156,9 +156,9 @@ class Announcement(models.Model):
 class Comment(models.Model):
 
     announcement = models.ForeignKey(
-        Announcement, verbose_name='Anúncio', related_name='comments'
+        Announcement, verbose_name='Anúncio', related_name='comments',on_delete=''
     )
-    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='usuário')
+    user = models.ForeignKey(settings.AUTH_USER_MODEL, verbose_name='usuário',on_delete='')
     comment = models.TextField('Comentário')
 
     created_at = models.DateTimeField('Criado em', auto_now_add=True)
