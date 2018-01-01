@@ -15,14 +15,14 @@
     <div class="home-menu pure-menu pure-menu-open pure-menu-horizontal pure-menu-fixed">
         <a class="pure-menu-heading" href="/">SIMPLE MOOC</a>
         <ul>
-            <li class="pure-menu-selected"><a href="/">Início</a></li>
-            <li><a href="/cursos/">Cursos</a></li>
-            <li><a href="/contato/">Contato</a></li>
+            <li class="pure-menu-selected"><a href="{% url 'core:home' %}">Início</a></li>
+            <li><a href="{% url 'courses:index' %}">Cursos</a></li>
+            <li><a href="{% url 'core:contact' %}">Contato</a></li>
             {% if user.is_authenticated %}
-            <li><a href="/conta/">Painel</a></li>
-            <li><a href="/conta/sair/">Sair</a></li>
+            <li><a href="{% url 'accounts:dashboard' %}">Painel</a></li>
+            <li><a href="{% url 'accounts:logout' %}">Sair</a></li>
             {% else %}
-            <li><a href="/conta/entrar/">Entrar</a></li>
+            <li><a href="{% url 'accounts:login' %}">Entrar</a></li>
             {% endif %}
         </ul>
     </div>

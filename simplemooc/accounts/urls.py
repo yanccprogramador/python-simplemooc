@@ -10,7 +10,7 @@ urlpatterns = [
     url(r'^entrar/$', login, 
         {'template_name': 'accounts/login.html'}, name='login'),
     url(r'^sair/$', logout, 
-        {'next_page': '/home/'}, name='logout'),
+        {'next_page': 'core:home'}, name='logout'),
     url(r'^cadastre-se/$', register, 
         name='register'),
     url(r'^nova-senha/$', password_reset, 
